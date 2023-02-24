@@ -1,4 +1,4 @@
 package br.com.catalogo.services
 
-class ActorServices {
+class StoreServices {
 }

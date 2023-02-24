@@ -5,6 +5,6 @@ import java.time.LocalDateTime
 data class City(
     val id: Int,
     val name: String,
-    val countryId: Country,
+    val countryId: Int,
     val lastUpdate: LocalDateTime
 )
