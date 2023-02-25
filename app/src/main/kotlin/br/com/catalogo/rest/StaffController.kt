@@ -1,5 +1,6 @@
 package br.com.catalogo.rest
 
+import br.com.catalogo.datastore.staffDb
 import br.com.catalogo.domain.City
 import br.com.catalogo.domain.Staff
 import br.com.catalogo.services.StaffServices
@@ -22,10 +23,6 @@ class StaffController {
     fun create(staff: Staff): HttpMutableHttpResponse<Unit>? {
         try{
             staffServices.save(staff)
-            /*val mapPost = mapOf(
-                staffServices to staffServices.save(staff)
-            )
-            println(mapPost)*/
 
         } catch (ex: Exception){
             println(ex.message)
@@ -48,5 +45,11 @@ class StaffController {
     @Get("/{id}")
     fun getById(id:Int){
         println("Get_By_Id: $id")
+    }
+
+    @Get
+    fun getAll(): MutableMap<Int, Staff> {
+        return staffServices.getAll()
+
     }
 }
