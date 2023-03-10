@@ -71,6 +71,6 @@ fun main(args: Array<String>) {
 
 	//println(saoPaulo)
 	//println(rioDeJaneiro)
-	println(mapCities2)
+	//println(mapCities2)
 }
 
