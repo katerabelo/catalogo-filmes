@@ -1,6 +1,6 @@
 package br.com.catalogo.rest
 
-import br.com.catalogo.datastore.staffDb
+//import br.com.catalogo.datastore.staffDb
 import br.com.catalogo.domain.City
 import br.com.catalogo.domain.Staff
 import br.com.catalogo.services.StaffServices
@@ -21,10 +21,10 @@ class StaffController {
 
     @Post
     fun create(staff: Staff): HttpMutableHttpResponse<Unit>? {
-        try{
+        try {
             staffServices.save(staff)
 
-        } catch (ex: Exception){
+        } catch (ex: Exception) {
             println(ex.message)
             return io.micronaut.http.HttpResponse.badRequest()
         }
@@ -33,23 +33,54 @@ class StaffController {
     }
 
     @Put
-    fun update(staff: Staff){
-        println(staff)
+    fun update(staff: Staff): HttpMutableHttpResponse<Unit>? {
+        try {
+            staffServices.update(staff)
+
+        } catch (ex: Exception) {
+            println(ex.message)
+            return io.micronaut.http.HttpResponse.badRequest()
+        }
+        return io.micronaut.http.HttpResponse.ok()
     }
 
     @Delete("/{id}")
-    fun delete(id:Int){
-        println("Delete_by_Id: $id")
+    fun delete(id: Int): HttpMutableHttpResponse<Any>? {
+        try {
+            staffServices.delete(id)
+
+        } catch (ex: Exception) {
+            println(ex.message)
+            return io.micronaut.http.HttpResponse.notFound("ID_não_encontrado_não_é_possível_deletar")
+        }
+        return io.micronaut.http.HttpResponse.ok("Deletado_com_sucesso")
     }
 
     @Get("/{id}")
-    fun getById(id:Int){
-        println("Get_By_Id: $id")
+    fun getById(id: Int): HttpMutableHttpResponse<Any>? {
+        val objetoEncontrado = staffServices.getId(id)
+
+        // Se o objeto foi encontrado:
+        if (objetoEncontrado != null) {
+            return io.micronaut.http.HttpResponse.ok(objetoEncontrado)
+        } else {
+            // Se o objeto não foi encontrado, retorna um status 404
+            return io.micronaut.http.HttpResponse.notFound("ID_não_encontrado.")
+        }
     }
 
+
     @Get
-    fun getAll(): MutableMap<Int, Staff> {
-        return staffServices.getAll()
+    fun getAll(): HttpMutableHttpResponse<Any>? {
+        val objetoEncontrado = staffServices.getAll()
+
+        // Se o objeto foi encontrado:
+        if (objetoEncontrado != null) {
+            return io.micronaut.http.HttpResponse.ok(objetoEncontrado)
+        } else {
+            // Se o objeto não foi encontrado, retorna um status 404
+            return io.micronaut.http.HttpResponse.notFound("Lista_de_Staff_vazia.")
+        }
 
     }
 }

@@ -9,9 +9,7 @@ data class Staff(
     val id: Int,
     val firstName: String,
     val lastName: String,
-    //val addressId: Address,
     val addressId: Int,
-    //val storeId: Store,
     val storeId: Int,
     val lastUpdate: LocalDateTime
 )
